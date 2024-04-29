@@ -1,5 +1,7 @@
 # TC20237-contextFreeGrammer
-### Generating and Cleaning a Restricted Context Free Grammar
+## Generating and Cleaning a Restricted Context Free Grammar
+
+### Description
 
 I chose to generate the grammar to create a simple, indefinite, one-varable integral. 
 This is to be constructed with constants (numbers 0...9), the variable x, the integral symbol
@@ -18,25 +20,12 @@ This gets complex real quick, so the grammar was shortened to only accept one va
 definite integrals due to this. 
 
 With the previous context in mind, we can create this using a RCFG (Restricted Context
-Free Grammar). A context free grammar (according to Geeks for Geeks) is "Context Free 
-Grammar is formal grammar, the syntax or structure of a formal language can be described 
-using context-free grammar (CFG), a type of formal grammar. The grammar has four tuples: (V,T,P,S)." 
-https://www.geeksforgeeks.org/what-is-context-free-grammar/
-
-  A -> bAcD
-  D -> aaCb
-  C -> b
-
-  * in this example, the uppercase letters represent non-terminals, the lowercase letters
-    represent termials and each line represents a rule. 
-
-A restricted CFG is just a CFG that has additional restrictions to make it simpler. 
-This is what I will be working with for this evidence. So first I will construct a base 
+Free Grammar). This is what I will be working with for this evidence. So first I will construct a base 
 grammar that will be ambiguous and left-recursive. Then I'll clean the grammar in order to 
 have it ready for it to be parsed using nltk in python. 
 
 
-### Model of grammar
+### Models of the grammar
 
 First we need to **generate a generic grammar that recognizes de language**. 
 Rochester University states that a CFG must contain the following: 
@@ -153,6 +142,20 @@ of the columns are just other constants:
 
 ![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/a3043f04-5476-4c44-94ac-df57ac657d53)
 
+
+### Implementation
+
+My implementation was made using python and the library nltk. For ease of use, this was made
+in a Jupiter Notebook, using Google Colab, so the tests are to be runned in this environment. 
+The format is already included with comments explaining the tests. The file can be found as:
+
+- CFG.ipynb
+
+The tests for the model are present as a coded implementation inside the Jupiter Notebook, and 
+are the same tests validated in the LL(1) princeton parser. The Princeton test's are presented
+in the following section (Valid Tests and Invalid Tests) of this README file. 
+
+
 ### Valid tests
 
 Here is a test for the following expression:
@@ -208,8 +211,46 @@ Finally a test that a number not separated by a space:
 
 ![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/12852a16-9dd9-4eb0-95a4-63544dbdbf2b)
 
+### Analysis 
 
+A context free grammar (according to Geeks for Geeks) is "Context Free 
+Grammar is formal grammar, the syntax or structure of a formal language can be described 
+using context-free grammar (CFG), a type of formal grammar. The grammar has four tuples: (V,T,P,S)." 
+https://www.geeksforgeeks.org/what-is-context-free-grammar/
 
+  A -> bAcD
+  D -> aaCb
+  C -> b
+
+  * in this example, the uppercase letters represent non-terminals, the lowercase letters
+    represent termials and each line represents a rule. 
+
+A restricted CFG is just a CFG that has additional restrictions to make it simpler. My implementation
+of a grammar to write simple integrals is a CFG because, first of all, on the left hand side of the grammar
+we only have non-terminal symbols. When you live in a higher level of the Extended Chomsky's Hierarchy (context-sensitive, 
+or higher) you have terminals on the left hand side of the production. And it is not a regular grammar,
+because it can have ambiguity, as it was modeled first. It was then later changed with a certain 
+set of rules for it not to be ambiguous. And this language cannot be represented by a nomral finite
+state automata, it need to be represented with a pushdown automata so we can observe the states because it has
+stacked storage. 
+
+### Conclusions
+
+After modeling two different solutions. One with an ambiguous grammar and one with an unambiguous grammar, 
+we can conclude that the latter is the more optimal solution, as we only have one parse tree for each input string. 
+This also helped us eliminate left recursion and avoid infinite loops. The time complexity of this solution is simple 
+to analyze as it only includes a linear for loop of the tokens separated by the tokenizer, giving a time complexity
+of O(n):
+
+    for i < n // n being the number of tokens produced by the tokenizer
+            if i in n 
+                i++ // parsing continues 
+            else 
+                break;
+
+This solution is the most efficient one for this case because we eliminated ambiguity, left recursion, and it correctly 
+displays the single parsing trees of each string. It is adequate for the proposed portion of the integrals to be 
+taken into account, and it accepts concatenation. 
 
 ### Bibliography 
 
