@@ -124,6 +124,7 @@ in a syntax for the website:
 - P ::= INT T DIFF
 - T ::= VAR EXP 
 - T ::= CONST T'
+- T ::= ''
 - T' ::= VAR EXP 
 - T' ::= CONST T
 - T' ::= ''
@@ -141,6 +142,7 @@ in a syntax for the website:
 - CONST ::= 8
 - CONST ::= 9
 - EXP ::= ^ T
+- EXP ::= ''
 
 It passed the test, and is availbe as an LL(1). First here are the 'First and Follow table': 
 
@@ -151,18 +153,62 @@ of the columns are just other constants:
 
 ![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/a3043f04-5476-4c44-94ac-df57ac657d53)
 
+### Valid tests
 
-Here is a test for the \ 2x^2 dx expression. 
+Here is a test for the following expression:
+- \ 2 x ^ 2 dx
 
 ![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/2ed3f534-8b9b-421d-854a-23e4dd52853a)
 
-And another one for a concatenated integral \ 2x^2 dx + \ 7 dx: 
+And another one for a concatenated integral:
+- \ 2 x ^ 2 dx + \ 7 dx
 
 ![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/21239771-d43f-47fb-a918-72559df27cb0)
 
-Finally a test passed for a more complex concatenated integral \ 81 x^8 dx - \ 721 x^2 dx + \ 5 dx: 
+Another concatenated integral:
+- \ 2 x ^ 2 dx + \ 5 x ^ 3 dx
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/fd661822-e002-4373-bbf9-7a7939644350)
+
+
+And another test passed for a more complex concatenated integral:
+- \ 8 1 x ^ 8 dx - \ 7 2 1 x ^ 2 dx + \ 5 dx
 
 ![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/4a537888-172d-4cae-83c1-ef73ffdec44d)
+
+Finally a final test with a bigger concatenated integral:
+- \ 1 0 2 1 x dx - \ 1 2 x dx + \ 1 3 x ^ 9 dx - \ 1 dx
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/17b41976-0144-4e8c-a0be-b8f67927fb03)
+
+### Invalid tests
+
+First a test that doesn't end in dx, making it invalid:
+- \ 1 3 x ^ 2
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/eaa9ddbb-b8ac-4549-9e44-f29b3bb66484)
+
+Now a test with the variable 'y' which is not accepted:
+- \ 7 x ^ 2 dx + \ 1 7 y dx
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/47b0d4aa-4bfb-49c8-b352-1a386b4734d3)
+
+Now a test with an exponent greater than > 10 which is not defined in this grammar: 
+- \ 4 5 1 x ^ 1 0 dx 
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/19f982fc-f4a7-48cc-8096-6b1cb3a2a7b7)
+
+Now a test with a missing integral symbol :
+- \ 1 0 dx + \ 9 x ^ 4 - 10 dx
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/03a77ab0-17aa-4eac-b696-b0be08c15ca6)
+
+Finally a test that a number not separated by a space:
+- \ 9 8 x ^ 5 dx - \ 1 x ^ 2 + \ 1 0 0 dx + \ 12 x dx
+
+![imagen](https://github.com/SebastianCo1126/TC20237-contextFreeGrammer/assets/150994751/12852a16-9dd9-4eb0-95a4-63544dbdbf2b)
+
+
 
 
 ### Bibliography 
