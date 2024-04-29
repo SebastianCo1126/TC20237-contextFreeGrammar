@@ -97,7 +97,8 @@ And with that we can add the rest of the variables that just access the differen
   - CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
   - EXP -> '^' T | ε
 
-Finally we construct our unambiguous, and non-left-recursive grammar: 
+Finally we construct our unambiguous, and non-left-recursive grammar, in which I additionaly
+I substituted the integral symbol for a '%' for better readability in the tests: 
 
 - S -> E
 - E -> P E'
@@ -105,7 +106,7 @@ Finally we construct our unambiguous, and non-left-recursive grammar:
 - P -> INT T DIFF
 - T -> VAR EXP | CONST T'
 - T' -> VAR EXP | CONST T | ε
-- INT -> '\'
+- INT -> '%'
 - DIFF -> 'dx'
 - VAR -> 'x'
 - CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
