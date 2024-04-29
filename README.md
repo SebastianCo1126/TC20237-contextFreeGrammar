@@ -48,16 +48,16 @@ Rochester University states that a CFG must contain the following:
 
 This was the first approach to generating a grammar.
 
-S -> INT EXPR DIFF
-EXPR -> T
-T -> VAR | CONST | T_L | T_R | EXP
-T_L -> VAR T_L | CONST T_L | EXP
-T_R -> T_R VAR | T_R CONST | T_R EXP | ε
-INT -> '\'
-DIFF -> 'dx'
-VAR -> 'x'
-CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-EXP -> '^' T | ε
+- S -> INT EXPR DIFF
+- EXPR -> T
+- T -> VAR | CONST | T_L | T_R | EXP
+- T_L -> VAR T_L | CONST T_L | EXP
+- T_R -> T_R VAR | T_R CONST | T_R EXP | ε
+- INT -> '\'
+- DIFF -> 'dx'
+- VAR -> 'x'
+- CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+- EXP -> '^' T | ε
 
 This grammar is problematic as we have two main issues. Ambiguity and left recursion. 
 Ambiguity happens because we can reach the same output through various different ways. 
@@ -79,67 +79,67 @@ As T_R can be called indefinetly. So re-working the grammar first we add the pos
 concatenating the expressions with + or -, as the previous grammar only considered one expression:
 
   - S -> E
-    E -> P E'
-    E' -> P '+' E | P '-' E | ε
-    P -> INT T DIFF
+  - E -> P E'
+  - E' -> P '+' E | P '-' E | ε
+  - P -> INT T DIFF
 
 Next, letst just stick to one way of derivation, and add a way for constants to access a variable 
 after them with or without and exponent: 
 
   - T -> VAR EXP | CONST T'
-    T' -> VAR EXP | ε
+  - T' -> VAR EXP | ε
 
 And with that we can add the rest of the variables that just access the different terminals: 
 
   - INT -> '\'
-    DIFF -> 'dx'
-    VAR -> 'x'
-    CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-    EXP -> '^' T | ε
+  - DIFF -> 'dx'
+  - VAR -> 'x'
+  - CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+  - EXP -> '^' T | ε
 
 Finally we construct our unambiguous, and non-left-recursive grammar: 
 
-S -> E
-E -> P E'
-E' -> P '+' E | P '-' E | ε
-P -> INT T DIFF
-T -> VAR EXP | CONST T'
-T' -> VAR EXP | CONST T | ε
-INT -> '\'
-DIFF -> 'dx'
-VAR -> 'x'
-CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-EXP -> '^' T | ε
+- S -> E
+- E -> P E'
+- E' -> P '+' E | P '-' E | ε
+- P -> INT T DIFF
+- T -> VAR EXP | CONST T'
+- T' -> VAR EXP | CONST T | ε
+- INT -> '\'
+- DIFF -> 'dx'
+- VAR -> 'x'
+- CONST -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+- EXP -> '^' T | ε
 
 Nos using Princeton University's LL(1) visualization tool 
 (available in https://www.cs.princeton.edu/courses/archive/spring20/cos320/LL1/) 
 we can check if the grammar is correct. The followinf is how the grammar was written 
 in a syntax for the website: 
 
-E ::= P E'
-E' ::= + E 
-E' ::= - E
-E' ::=  ''
-P ::= INT T DIFF
-T ::= VAR EXP 
-T ::= CONST T'
-T' ::= VAR EXP 
-T' ::= CONST T
-T' ::= ''
-INT ::= \
-DIFF ::= dx
-VAR ::= x
-CONST ::= 0 
-CONST ::= 1
-CONST ::= 2
-CONST ::= 3
-CONST ::= 4
-CONST ::= 5
-CONST ::= 6
-CONST ::= 7
-CONST ::= 8
-CONST ::= 9
-EXP ::= ^ T
+- E ::= P E'
+- E' ::= + E 
+- E' ::= - E
+- E' ::=  ''
+- P ::= INT T DIFF
+- T ::= VAR EXP 
+- T ::= CONST T'
+- T' ::= VAR EXP 
+- T' ::= CONST T
+- T' ::= ''
+- INT ::= \
+- DIFF ::= dx
+- VAR ::= x
+- CONST ::= 0 
+- CONST ::= 1
+- CONST ::= 2
+- CONST ::= 3
+- CONST ::= 4
+- CONST ::= 5
+- CONST ::= 6
+- CONST ::= 7
+- CONST ::= 8
+- CONST ::= 9
+- EXP ::= ^ T
 
 It passed the test, and is availbe as an LL(1). First here are the 'First and Follow table': 
 
