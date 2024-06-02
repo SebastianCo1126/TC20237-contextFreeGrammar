@@ -3,7 +3,7 @@
 
 ### Description
 
-I chose to generate the grammar to create a simple, indefinite, one-varable integral. 
+I chose to generate the grammar to create a simple, indefinite, one-variable integral. 
 This is to be constructed with constants (numbers 0...9), the variable x, the integral symbol
 which in this case is going to be represented by a back slash '\', the exponentiation 
 symbol '^' and finally the differential 'dx'. All of this to construct our grammar. 
@@ -146,10 +146,13 @@ of the columns are just other constants:
 ### Implementation
 
 My implementation was made using python and the library nltk. For ease of use, this was made
-in a Jupiter Notebook, using Google Colab, so the tests are to be runned in this environment. 
-The format is already included with comments explaining the tests. The file can be found as:
+in a Jupiter Notebook, using Google Colab, so the tests are recommended to be run in this environment.
+However the pure python code file is included as well for the tests to be runned locally. 
+
+The files are : 
 
 - CFG.ipynb
+- cfg.py (for locally running the tests)
 
 The tests for the model are present as a coded implementation inside the Jupiter Notebook, and 
 are the same tests validated in the LL(1) princeton parser. The Princeton test's are presented
