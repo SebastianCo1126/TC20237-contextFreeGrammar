@@ -255,6 +255,18 @@ This solution is the most efficient one for this case because we eliminated ambi
 displays the single parsing trees of each string. It is adequate for the proposed portion of the integrals to be 
 taken into account, and it accepts concatenation. 
 
+### Changes notes
+For correction of my evidence, I added a python file with a simplified version of the tests to be runned locally. For this 
+to work we need to install nltk. For this, I recommend using the pip installer. You can run the following command to have the 
+library installed: 
+
+- pip install nltk
+
+Once this is installed. You should be able to run the script by simply heading to the command prompt, and navigating to the 
+directory in which the file is located and writing in the terminal: 
+
+- python cfg.py
+
 ### Bibliography 
 
 - Geeks for Geeks. (22 nov 2021). _Construct Pushdown Automata for given languages_. https://www.geeksforgeeks.org/construct-pushdown-automata-given-languages/
